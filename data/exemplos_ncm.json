@@ -1,0 +1,74 @@
+{
+  "casos": [
+    {
+      "id": 1,
+      "descricao": "Parafuso de aco inoxidavel, cabeca sextavada, M10x50mm, rosca metrica, para uso em estruturas metalicas industriais",
+      "ncm": "7318.15.00",
+      "resultado_esperado": "APROVADO",
+      "motivo": "Parafusos de aco com cabeca sextavada classificam-se corretamente na posicao 7318.15 conforme NESH Capitulo 73"
+    },
+    {
+      "id": 2,
+      "descricao": "Notebook portatil, tela 15.6 polegadas, processador Intel Core i7, 16GB RAM, SSD 512GB, sistema Windows 11",
+      "ncm": "8471.30.00",
+      "resultado_esperado": "APROVADO",
+      "motivo": "Maquinas automaticas para processamento de dados portateis (laptops) classificam-se na posicao 8471.30 conforme NESH Capitulo 84"
+    },
+    {
+      "id": 3,
+      "descricao": "Smartphone com tela 6.7 polegadas AMOLED, 5G, camera 108MP, 256GB armazenamento, Android 14",
+      "ncm": "8517.13.00",
+      "resultado_esperado": "APROVADO",
+      "motivo": "Telefones celulares com funcao de comunicacao sem fio classificam-se na posicao 8517.13 conforme NESH Capitulo 85"
+    },
+    {
+      "id": 4,
+      "descricao": "Notebook portatil, tela 15.6 polegadas, processador Intel Core i5, 8GB RAM, SSD 256GB",
+      "ncm": "0201.10.00",
+      "resultado_esperado": "RISCO",
+      "motivo": "NCM 0201.10.00 refere-se a carnes bovinas frescas/refrigeradas. Produto eletronico classificado em posicao de alimentos e erro grave"
+    },
+    {
+      "id": 5,
+      "descricao": "Cafe torrado em graos, embalagem 1kg, 100% arabica, origem Colombia",
+      "ncm": "8517.13.00",
+      "resultado_esperado": "RISCO",
+      "motivo": "NCM 8517.13 refere-se a telefones celulares. Cafe torrado deveria ser classificado em 0901.21.00"
+    },
+    {
+      "id": 6,
+      "descricao": "Arroz branco polido tipo 1, embalagem 5kg, safra 2025",
+      "ncm": "7318.15.00",
+      "resultado_esperado": "RISCO",
+      "motivo": "NCM 7318.15 refere-se a parafusos de aco. Arroz deveria ser classificado no Capitulo 10 (1006.30)"
+    },
+    {
+      "id": 7,
+      "descricao": "Pneu de borracha para automovel de passageiros, aro 16, 205/55 R16",
+      "ncm": "8471.30.00",
+      "resultado_esperado": "RISCO",
+      "motivo": "NCM 8471.30 refere-se a computadores portateis. Pneus de borracha classificam-se no Capitulo 40 (4011.10)"
+    },
+    {
+      "id": 8,
+      "descricao": "Peca metalica cilindrica com rosca externa, uso nao especificado",
+      "ncm": "7318.15.00",
+      "resultado_esperado": "ATENCAO",
+      "motivo": "Descricao vaga - pode ser parafuso (7318.15) mas tambem pino roscado, prisioneiro ou outro artigo similar. Falta especificacao de cabeca e funcao"
+    },
+    {
+      "id": 9,
+      "descricao": "Equipamento eletronico portatil com tela e teclado",
+      "ncm": "8471.30.00",
+      "resultado_esperado": "ATENCAO",
+      "motivo": "Descricao generica - pode ser notebook (8471.30) mas tambem terminal de ponto de venda, leitor de codigo de barras portatil ou outro equipamento"
+    },
+    {
+      "id": 10,
+      "descricao": "Dispositivo de comunicacao sem fio portatil",
+      "ncm": "8517.13.00",
+      "resultado_esperado": "ATENCAO",
+      "motivo": "Descricao insuficiente - pode ser celular (8517.13) mas tambem radio comunicador (8525), walkie-talkie ou dispositivo IoT"
+    }
+  ]
+}

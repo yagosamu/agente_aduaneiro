@@ -1,0 +1,220 @@
+================================================================================
+NOTAS EXPLICATIVAS DO SISTEMA HARMONIZADO (NESH) - VERSAO SIMULADA PARA TESTES
+================================================================================
+
+Este documento simula trechos das Notas Explicativas do Sistema Harmonizado
+para fins de desenvolvimento e teste do sistema de auditoria de conformidade
+aduaneira. Os textos sao baseados na estrutura real da NESH, porem simplificados.
+
+================================================================================
+SECAO XV - METAIS COMUNS E SUAS OBRAS
+CAPITULO 73 - OBRAS DE FERRO FUNDIDO, FERRO OU ACO
+POSICAO 7318 - PARAFUSOS, PINOS OU PERNOS, ROSCADOS, PORCAS, TIRA-FUNDOS,
+               GANCHOS ROSCADOS, REBITES, CHAVETAS, CAVILHAS, CONTRAPINOS,
+               ARRUELAS E ARTEFATOS SEMELHANTES, DE FERRO FUNDIDO, FERRO OU ACO
+================================================================================
+
+A presente posicao abrange uma grande variedade de artefatos de ferro fundido,
+ferro ou aco, utilizados geralmente para fixacao ou montagem de pecas.
+
+SUBPOSICAO 7318.1 - ARTEFATOS ROSCADOS
+
+7318.11 - Tira-fundos
+Parafusos de cabeca, geralmente quadrada ou sextavada, com rosca para madeira
+(rosca soberba). Utilizados para fixar pecas de madeira ou fixar pecas metalicas
+em suportes de madeira.
+
+7318.12 - Outros parafusos para madeira
+Parafusos com rosca para madeira diferentes dos tira-fundos, incluindo parafusos
+de cabeca chata, redonda ou oval.
+
+7318.13 - Ganchos e pinos ou pernos, roscados
+Ganchos de suspensao roscados, armelas (ganchos fechados), pinos com rosca que
+nao possuem cabeca.
+
+7318.14 - Parafusos perfurantes (self-tapping screws)
+Parafusos que possuem ponta cortante capaz de abrir o proprio furo na peca a ser
+fixada, sem necessidade de furo previo ou porca.
+
+7318.15 - Outros parafusos e pinos ou pernos, mesmo com as porcas e arruelas
+Esta subposicao abrange todos os demais parafusos e pinos roscados de ferro
+fundido, ferro ou aco, nao compreendidos nas subposicoes anteriores.
+INCLUIDOS nesta subposicao:
+- Parafusos de cabeca sextavada (metrica ISO)
+- Parafusos de cabeca cilindrica com sextavado interno (Allen)
+- Parafusos de cabeca escareada (Phillips, Torx, fenda)
+- Prisioneiros (parafusos sem cabeca com rosca em ambas as extremidades)
+- Parafusos com porca e arruela fornecidos em conjunto
+- Parafusos de aco inoxidavel, aco carbono e aco liga
+- Parafusos de alta resistencia (classes 8.8, 10.9, 12.9)
+
+EXCLUIDOS desta subposicao:
+- Parafusos de cobre ou suas ligas (posicao 7415)
+- Parafusos de aluminio (posicao 7616)
+- Parafusos de titanio (posicao 8108)
+- Parafusos perfurantes (subposicao 7318.14)
+- Rebites (subposicao 7318.23 ou 7318.24)
+- Porcas isoladas sem parafuso (subposicao 7318.16)
+
+EXEMPLOS DE PRODUTOS:
+1. Parafuso sextavado M8x40 classe 8.8 zincado
+2. Parafuso Allen M6x25 aco inoxidavel A2-70
+3. Prisioneiro M10x50 aco carbono
+4. Kit parafuso + porca + arruela M12 galvanizado
+
+REGRAS DE CLASSIFICACAO APLICAVEIS:
+- RGI 1: Classificacao pelos textos das posicoes e notas de secao/capitulo
+- RGI 6: Classificacao nas subposicoes de uma mesma posicao
+- Nota 2 do Capitulo 73: Os artigos de ferro ou aco que tenham recebido
+  tratamento superficial (zincagem, cromagem, etc.) continuam classificados
+  neste capitulo.
+
+================================================================================
+SECAO XVI - MAQUINAS E APARELHOS, MATERIAL ELETRICO E SUAS PARTES
+CAPITULO 84 - REATORES NUCLEARES, CALDEIRAS, MAQUINAS, APARELHOS E
+              INSTRUMENTOS MECANICOS, E SUAS PARTES
+POSICAO 8471 - MAQUINAS AUTOMATICAS PARA PROCESSAMENTO DE DADOS E SUAS
+               UNIDADES; LEITORES MAGNETICOS OU OPTICOS, MAQUINAS PARA
+               REGISTRAR DADOS EM SUPORTE SOB FORMA CODIFICADA, E MAQUINAS
+               PARA PROCESSAMENTO DESSES DADOS, NAO ESPECIFICADAS NEM
+               COMPREENDIDAS NOUTRAS POSICOES
+================================================================================
+
+Esta posicao compreende as maquinas automaticas para processamento de dados
+(computadores) e suas unidades, bem como outros equipamentos de processamento
+de dados.
+
+Para classificacao nesta posicao, as maquinas devem satisfazer simultaneamente
+as seguintes condicoes:
+a) Armazenar o programa de processamento e pelo menos os dados imediatamente
+   necessarios para a execucao desse programa.
+b) Ser livremente programaveis, de acordo com as necessidades do utilizador.
+c) Executar operacoes aritmeticas especificadas pelo utilizador.
+d) Executar, sem intervencao humana, um programa de processamento cujas
+   instrucoes possam ser modificadas.
+
+8471.30 - Maquinas automaticas para processamento de dados, portateis, de peso
+          nao superior a 10 kg, que contenham pelo menos uma unidade central de
+          processamento, um teclado e uma tela.
+INCLUIDOS nesta subposicao:
+- Notebooks (laptops) de todas as marcas e configuracoes
+- Ultrabooks e laptops ultrafinos
+- Chromebooks e laptops com ChromeOS
+- Workstations moveis (laptops para uso profissional)
+- Laptops 2-em-1 (conversiveis com tela destacavel ou rotativa)
+- Netbooks (descontinuados, mas ainda classificados aqui)
+
+EXCLUIDOS desta subposicao:
+- Tablets sem teclado fisico integrado (posicao 8471.30 ou 8471.41, conforme
+  funcionalidade - tablets com funcao primaria de processamento de dados
+  podem ser classificados aqui se atenderem aos criterios a-d acima)
+- Smartphones e telefones celulares (posicao 8517)
+- Consoles de videogame portateis (posicao 9504)
+- Calculadoras programaveis (posicao 8470)
+- Leitores de livros eletronicos (e-readers) sem capacidade de processamento
+  geral (posicao 8543)
+- Servidores (posicao 8471.49 ou 8471.50)
+- Desktops e computadores de mesa (posicao 8471.41 ou 8471.49)
+
+EXEMPLOS DE PRODUTOS:
+1. Notebook Dell Inspiron 15, i7, 16GB RAM, 512GB SSD
+2. MacBook Pro 14 polegadas, M3 Pro, 18GB RAM
+3. Lenovo ThinkPad X1 Carbon, i5 vPro, 8GB RAM
+4. Chromebook Samsung, Celeron, 4GB RAM, 32GB eMMC
+
+REGRAS DE CLASSIFICACAO APLICAVEIS:
+- RGI 1: Textos das posicoes e notas de secao
+- RGI 3(b): Classificacao pelo artigo que confere o carater essencial
+  (para conjuntos que incluem perifericos)
+- Nota 5(A) do Capitulo 84: Define o conceito de "maquinas automaticas para
+  processamento de dados" e os criterios a-d obrigatorios
+- Nota 5(B) do Capitulo 84: Unidades de maquinas automaticas para processamento
+  de dados classificam-se na posicao 8471
+
+================================================================================
+SECAO XVI - MAQUINAS E APARELHOS, MATERIAL ELETRICO E SUAS PARTES
+CAPITULO 85 - MAQUINAS, APARELHOS E MATERIAIS ELETRICOS, E SUAS PARTES
+POSICAO 8517 - APARELHOS TELEFONICOS, INCLUINDO OS TELEFONES PARA REDES
+               CELULARES E PARA OUTRAS REDES SEM FIO; OUTROS APARELHOS PARA
+               EMISSAO, TRANSMISSAO OU RECEPCAO DE VOZ, IMAGENS OU OUTROS
+               DADOS, INCLUINDO OS APARELHOS PARA COMUNICACAO EM REDES POR
+               FIO OU REDES SEM FIO (TAIS COMO REDES LOCAIS (LAN) OU REDES DE
+               AREA ESTENDIDA (WAN))
+================================================================================
+
+Esta posicao compreende os aparelhos para a transmissao ou recepcao de voz,
+imagens ou outros dados entre dois pontos, por meio de variacao de corrente
+eletrica ou de onda optica percorrendo uma linha fixa, ou por ondas
+eletromagneticas (radiofrequencia).
+
+8517.11 - Aparelhos telefonicos por fio com combinado sem fio
+Telefones fixos cuja base se conecta a rede por fio, mas o combinado
+(monofone) comunica-se com a base por radiofrequencia (telefones sem fio DECT).
+
+8517.13 - Telefones para redes celulares e para outras redes sem fio
+INCLUIDOS nesta subposicao:
+- Smartphones de todas as marcas (Apple, Samsung, Xiaomi, Motorola, etc.)
+- Telefones celulares basicos (feature phones)
+- Telefones celulares 5G, 4G/LTE, 3G
+- Telefones via satelite (Iridium, Thuraya, etc.)
+- Smartphones com funcoes de GPS, camera, reprodutor multimidia, etc.
+  (desde que a funcao principal seja comunicacao telefonica)
+
+EXCLUIDOS desta subposicao:
+- Tablets sem funcao telefonica (posicao 8471)
+- Radios comunicadores (walkie-talkies) (posicao 8525)
+- Equipamentos de radiodifusao (posicao 8525)
+- Modems e roteadores WiFi (subposicao 8517.62)
+- Smartwatches com funcao de comunicacao limitada (posicao 9102 ou 8517,
+  conforme funcao principal)
+- Dispositivos IoT de comunicacao sem funcao telefonica (subposicao 8517.62)
+- Receptores GPS sem funcao de comunicacao (posicao 9014 ou 8526)
+
+EXEMPLOS DE PRODUTOS:
+1. iPhone 15 Pro Max, 256GB, 5G
+2. Samsung Galaxy S24 Ultra, 512GB
+3. Xiaomi Redmi Note 13, 128GB, 4G
+4. Telefone satelite Iridium 9575 Extreme
+
+REGRAS DE CLASSIFICACAO APLICAVEIS:
+- RGI 1: Textos das posicoes e notas de secao
+- RGI 3(b): Quando o aparelho combina funcoes multiplas (telefone + camera +
+  GPS + computador), classifica-se pela funcao que lhe confere o carater
+  essencial. Para smartphones, a funcao principal e a comunicacao telefonica.
+- Nota 3 da Secao XVI: Maquinas com funcoes multiplas classificam-se segundo
+  a funcao principal ou, na falta de criterio, na posicao residual aplicavel
+- Nota Explicativa de subposicao: A expressao "telefones para redes celulares"
+  abrange os aparelhos que se conectam diretamente a rede celular, mesmo que
+  possuam funcoes adicionais (camera, GPS, acesso a internet)
+
+================================================================================
+REGRAS GERAIS DE INTERPRETACAO (RGI) - RESUMO
+================================================================================
+
+RGI 1 - Os titulos das Secoes, Capitulos e Subcapitulos tem apenas valor
+indicativo. Para os efeitos legais, a classificacao e determinada pelos textos
+das posicoes e das Notas de Secao e de Capitulo e, desde que nao sejam
+contrarias aos textos das referidas posicoes e Notas, pelas Regras seguintes.
+
+RGI 2 - a) Qualquer referencia a um artigo em determinada posicao abrange esse
+artigo incompleto ou inacabado, desde que apresente as caracteristicas essenciais
+do artigo completo ou acabado.
+b) Qualquer referencia a uma materia em determinada posicao diz respeito a essa
+materia quer em estado puro, quer misturada ou associada a outras materias.
+
+RGI 3 - Quando uma mercadoria possa ser classificada em duas ou mais posicoes:
+a) A posicao mais especifica prevalece sobre as mais genericas.
+b) Produtos misturados e artigos compostos classificam-se pela materia ou
+   artigo que lhes confira a caracteristica essencial.
+c) Na impossibilidade de aplicar as regras a) ou b), classifica-se na posicao
+   situada em ultimo lugar na ordem numerica.
+
+RGI 4 - As mercadorias que nao possam ser classificadas por aplicacao das
+Regras acima enunciadas classificam-se na posicao correspondente aos artigos
+mais semelhantes.
+
+RGI 5 - Regras para estojos, embalagens e recipientes especiais.
+
+RGI 6 - A classificacao de mercadorias nas subposicoes de uma mesma posicao e
+determinada pelos textos dessas subposicoes e das Notas de subposicao, bem como
+pelas Regras acima, aplicadas mutatis mutandis.
