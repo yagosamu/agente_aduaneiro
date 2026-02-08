@@ -493,7 +493,7 @@ with tab3:
     if df_hist.empty:
         st.info("Nenhuma validacao registrada ainda.")
     else:
-        df_hist["data"] = pd.to_datetime(df_hist["timestamp"]).dt.date
+        df_hist["data"] = pd.to_datetime(df_hist["timestamp"], format="ISO8601").dt.date
 
         df_diario = (
             df_hist.groupby("data")
