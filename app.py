@@ -3,6 +3,7 @@ import os
 import re
 import json
 import io
+import unicodedata
 from datetime import datetime
 from pathlib import Path
 
@@ -88,6 +89,90 @@ def normalizar_ncm(ncm_raw: str) -> str:
 
 def validar_formato_ncm(ncm: str) -> bool:
     return bool(re.match(r"^\d{4}\.\d{2}\.\d{2}$", ncm))
+
+
+ALIASES_DESCRICAO = {
+    "descricao", "descrição", "description", "desc", "produto",
+    "product", "mercadoria", "item", "nome", "name",
+}
+
+ALIASES_NCM = {
+    "ncm", "codigo_ncm", "código_ncm", "ncm_code", "cod_ncm",
+    "código ncm", "codigo ncm", "cod ncm", "code",
+}
+
+
+def _remover_acentos(texto: str) -> str:
+    nfkd = unicodedata.normalize("NFKD", texto)
+    return "".join(c for c in nfkd if not unicodedata.combining(c))
+
+
+def _normalizar_nome_coluna(nome: str) -> str:
+    return _remover_acentos(nome.strip().lower())
+
+
+def detectar_colunas(df: pd.DataFrame, uploaded_file) -> pd.DataFrame | None:
+    """Detecta e renomeia colunas 'descricao' e 'ncm' usando aliases conhecidos.
+
+    Tenta primeiro mapear aliases nos nomes de colunas existentes.
+    Se falhar, escaneia as primeiras 10 linhas procurando uma linha que
+    sirva como cabecalho e re-le o arquivo usando skiprows.
+
+    Retorna o DataFrame com colunas renomeadas ou None se nao conseguir detectar.
+    """
+    col_descricao = None
+    col_ncm = None
+
+    # Fase 1: mapear aliases nos nomes de colunas atuais
+    for col_original in df.columns:
+        col_norm = _normalizar_nome_coluna(str(col_original))
+        if col_norm in ALIASES_DESCRICAO and col_descricao is None:
+            col_descricao = col_original
+        elif col_norm in ALIASES_NCM and col_ncm is None:
+            col_ncm = col_original
+
+    if col_descricao and col_ncm:
+        df = df.rename(columns={col_descricao: "descricao", col_ncm: "ncm"})
+        return df
+
+    # Fase 2: fallback — procurar cabecalho nas primeiras 10 linhas
+    aliases_todos = ALIASES_DESCRICAO | ALIASES_NCM
+    max_linhas = min(10, len(df))
+
+    for idx in range(max_linhas):
+        valores = [_normalizar_nome_coluna(str(v)) for v in df.iloc[idx]]
+        matches = sum(1 for v in valores if v in aliases_todos)
+        if matches >= 2:
+            # Encontrou uma linha que parece ser cabecalho
+            uploaded_file.seek(0)
+            skiprows = idx + 1  # +1 porque pandas ja pulou a primeira linha como header
+            if uploaded_file.name.endswith(".csv"):
+                df_novo = pd.read_csv(uploaded_file, skiprows=skiprows, header=0)
+            else:
+                df_novo = pd.read_excel(uploaded_file, skiprows=skiprows, header=0)
+
+            # Renomear o novo header usando a linha encontrada
+            novos_nomes = [str(v).strip() for v in df.iloc[idx]]
+            if len(novos_nomes) == len(df_novo.columns):
+                df_novo.columns = novos_nomes
+
+            # Tentar mapear aliases novamente
+            col_descricao = None
+            col_ncm = None
+            for col_original in df_novo.columns:
+                col_norm = _normalizar_nome_coluna(str(col_original))
+                if col_norm in ALIASES_DESCRICAO and col_descricao is None:
+                    col_descricao = col_original
+                elif col_norm in ALIASES_NCM and col_ncm is None:
+                    col_ncm = col_original
+
+            if col_descricao and col_ncm:
+                df_novo = df_novo.rename(
+                    columns={col_descricao: "descricao", col_ncm: "ncm"}
+                )
+                return df_novo
+
+    return None
 
 
 def calcular_custo(prompt_tokens: int, completion_tokens: int, modelo: str) -> float:
@@ -324,7 +409,9 @@ with tab1:
 
 with tab2:
     st.markdown(
-        "Envie um arquivo **CSV** ou **Excel** com as colunas `descricao` e `ncm`."
+        "Envie um arquivo **CSV** ou **Excel** com colunas de descricao do produto e codigo NCM. "
+        "Aceitamos variacoes como `descricao`, `produto`, `description`, `item` "
+        "e `ncm`, `ncm_code`, `codigo_ncm`, entre outros."
     )
 
     uploaded_file = st.file_uploader(
@@ -339,10 +426,14 @@ with tab2:
             else:
                 df_input = pd.read_excel(uploaded_file)
 
-            df_input.columns = [c.strip().lower() for c in df_input.columns]
+            df_input = detectar_colunas(df_input, uploaded_file)
 
-            if "descricao" not in df_input.columns or "ncm" not in df_input.columns:
-                st.error("O arquivo deve conter as colunas 'descricao' e 'ncm'.")
+            if df_input is None:
+                st.error(
+                    "Nao foi possivel detectar as colunas de descricao e NCM. "
+                    "Use nomes como 'descricao', 'produto', 'description' e "
+                    "'ncm', 'ncm_code', 'codigo_ncm'."
+                )
             else:
                 st.dataframe(
                     df_input[["descricao", "ncm"]].head(10), use_container_width=True
