@@ -32,6 +32,11 @@ class RAGEngine:
         self.model: SentenceTransformer | None = None
         self._tokenizer = tiktoken.get_encoding("cl100k_base")
 
+        # Indice NCM (tabela oficial)
+        self.ncm_chunks: list[str] = []
+        self.ncm_codigos: list[str] = []
+        self.ncm_index: faiss.IndexFlatL2 | None = None
+
     # ------------------------------------------------------------------
     # Documentos
     # ------------------------------------------------------------------
@@ -190,6 +195,84 @@ class RAGEngine:
                 })
 
         logger.info("Busca por '%s': %d resultados", query[:60], len(results))
+        return results
+
+    # ------------------------------------------------------------------
+    # Tabela NCM — load / search
+    # ------------------------------------------------------------------
+
+    def load_ncm_vectorstore(self) -> None:
+        """Carrega indice FAISS da tabela NCM oficial."""
+        index_file = self.vectorstore_path / "ncm_tabela.faiss"
+        chunks_file = self.vectorstore_path / "ncm_tabela_chunks.npy"
+        codigos_file = self.vectorstore_path / "ncm_tabela_codigos.npy"
+
+        if not index_file.exists() or not chunks_file.exists() or not codigos_file.exists():
+            raise FileNotFoundError(
+                f"Indice NCM nao encontrado em {self.vectorstore_path}. "
+                "Execute NCMTabelaIndexer.build() primeiro."
+            )
+
+        self.ncm_index = faiss.read_index(str(index_file))
+        self.ncm_chunks = list(np.load(str(chunks_file), allow_pickle=True))
+        self.ncm_codigos = list(np.load(str(codigos_file), allow_pickle=True))
+
+        if self.model is None:
+            logger.info("Carregando modelo de embeddings: %s", EMBEDDING_MODEL)
+            self.model = SentenceTransformer(EMBEDDING_MODEL)
+
+        logger.info(
+            "Indice NCM carregado: %d vetores, %d codigos",
+            self.ncm_index.ntotal,
+            len(self.ncm_codigos),
+        )
+
+    def search_ncm(self, query: str, k: int = 3) -> list[dict]:
+        """Busca os k NCMs mais relevantes na tabela oficial.
+
+        Retorna lista de dicts com 'text', 'score', 'ncm_codigo' e 'source'.
+        """
+        if self.ncm_index is None or not self.ncm_chunks:
+            return []
+
+        query_embedding = self.create_embeddings([query])
+        distances, indices = self.ncm_index.search(query_embedding, min(k, len(self.ncm_chunks)))
+
+        results = []
+        for dist, idx in zip(distances[0], indices[0]):
+            if idx < len(self.ncm_chunks):
+                results.append({
+                    "text": self.ncm_chunks[idx],
+                    "score": float(dist),
+                    "ncm_codigo": self.ncm_codigos[idx],
+                    "source": "ncm_tabela",
+                })
+
+        logger.info("Busca NCM por '%s': %d resultados", query[:60], len(results))
+        return results
+
+    def search_combined(self, query: str, k_nesh: int = 3, k_ncm: int = 3) -> list[dict]:
+        """Busca em ambos os indices (NESH + NCM) e retorna resultados combinados.
+
+        Cada resultado tem 'text', 'score' e 'source' ("nesh" ou "ncm_tabela").
+        Resultados NCM tambem incluem 'ncm_codigo'.
+        """
+        results = []
+
+        # Busca NESH
+        if self.index is not None and self.chunks:
+            nesh_results = self.search(query, k=k_nesh)
+            for r in nesh_results:
+                r["source"] = "nesh"
+                results.append(r)
+
+        # Busca NCM
+        ncm_results = self.search_ncm(query, k=k_ncm)
+        results.extend(ncm_results)
+
+        # Ordena por score (menor distancia L2 = mais relevante)
+        results.sort(key=lambda x: x["score"])
+
         return results
 
 

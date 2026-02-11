@@ -233,7 +233,7 @@ class TestValidadorMock:
 
     def test_sem_rag_retorna_mensagem(self, validador_mock):
         ctx = validador_mock._buscar_contexto_rag("parafuso", "7318.15.00")
-        assert "Nenhuma base NESH disponivel" in ctx
+        assert "Nenhuma base tecnica disponivel" in ctx
 
     def test_modelo_passado_na_chamada(self, validador_mock):
         validador_mock.validar("Teste", "1234.56.78")

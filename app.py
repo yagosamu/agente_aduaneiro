@@ -13,6 +13,7 @@ from openai import AuthenticationError
 
 from src.rag_engine import RAGEngine
 from src.llm_agent import ValidadorNCM
+from src.ncm_tabela import NCMTabelaIndexer
 
 load_dotenv()
 
@@ -61,17 +62,28 @@ for _k, _v in _defaults.items():
 @st.cache_resource
 def carregar_rag_engine():
     engine = RAGEngine()
+    nesh_ok = False
+    ncm_ok = False
+
     try:
         engine.load_vectorstore()
-        return engine, True
+        nesh_ok = True
     except FileNotFoundError:
-        return engine, False
+        pass
+
+    try:
+        engine.load_ncm_vectorstore()
+        ncm_ok = True
+    except FileNotFoundError:
+        pass
+
+    return engine, nesh_ok, ncm_ok
 
 
 @st.cache_resource
 def criar_validador(api_key, modelo, usar_rag):
-    rag_engine, rag_ok = carregar_rag_engine()
-    engine = rag_engine if (usar_rag and rag_ok) else None
+    rag_engine, nesh_ok, ncm_ok = carregar_rag_engine()
+    engine = rag_engine if (usar_rag and (nesh_ok or ncm_ok)) else None
     return ValidadorNCM(api_key=api_key, model=modelo, rag_engine=engine)
 
 
@@ -283,9 +295,9 @@ with st.sidebar:
 
     st.divider()
 
-    st.subheader("Base NESH")
+    st.subheader("Bases Tecnicas")
 
-    usar_rag = st.checkbox("Usar vector store existente", value=True)
+    usar_rag = st.checkbox("Usar vector stores existentes", value=True)
 
     if st.button("Reprocessar documentos NESH", use_container_width=True):
         with st.spinner("Reprocessando base NESH..."):
@@ -301,14 +313,32 @@ with st.sidebar:
             except Exception as e:
                 st.error(f"Erro ao reprocessar: {e}")
 
+    if st.button("Reprocessar Tabela NCM", use_container_width=True):
+        with st.spinner("Indexando Tabela NCM..."):
+            try:
+                indexer = NCMTabelaIndexer()
+                total = indexer.build()
+                st.success(f"Tabela NCM indexada: {total} codigos.")
+                carregar_rag_engine.clear()
+                criar_validador.clear()
+                st.rerun()
+            except FileNotFoundError as e:
+                st.error(f"Erro: {e}")
+            except Exception as e:
+                st.error(f"Erro ao indexar tabela NCM: {e}")
+
     if usar_rag:
-        _rag, _rag_ok = carregar_rag_engine()
-        if _rag_ok:
+        _rag, _nesh_ok, _ncm_ok = carregar_rag_engine()
+        if _nesh_ok:
             st.success(f"Base NESH carregada: {_rag.index.ntotal} vetores")
         else:
             st.warning("Base NESH nao encontrada. Coloque PDFs em data/nesh/ e reprocesse.")
+        if _ncm_ok:
+            st.success(f"Tabela NCM carregada: {len(_rag.ncm_codigos)} codigos")
+        else:
+            st.warning("Tabela NCM nao indexada. Coloque o JSON em data/ncm/ e reprocesse.")
     else:
-        st.info("Validacao sem base NESH.")
+        st.info("Validacao sem bases tecnicas.")
 
     st.divider()
 

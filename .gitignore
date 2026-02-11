@@ -33,6 +33,8 @@ desktop.ini
 # Project specific
 data/vectorstore/*.faiss
 data/vectorstore/*.pkl
+data/vectorstore/ncm_tabela*.npy
+data/ncm/*.json
 outputs/logs/*.log
 
 # Jupyter

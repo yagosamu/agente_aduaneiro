@@ -62,26 +62,46 @@ class ValidadorNCM:
         return resultado
 
     def _buscar_contexto_rag(self, descricao: str, ncm: str) -> str:
-        """Busca regras relevantes via RAG engine."""
+        """Busca regras relevantes via RAG engine (NESH + Tabela NCM)."""
         if self.rag_engine is None:
-            return "Nenhuma base NESH disponivel para consulta."
+            return "Nenhuma base tecnica disponivel para consulta."
 
         try:
             query = f"{descricao} NCM {ncm}"
-            resultados = self.rag_engine.search(query, k=3)
+
+            # Usa busca combinada se disponivel, senao fallback para busca NESH
+            if hasattr(self.rag_engine, "search_combined"):
+                resultados = self.rag_engine.search_combined(query, k_nesh=3, k_ncm=3)
+            else:
+                resultados = self.rag_engine.search(query, k=3)
+                for r in resultados:
+                    r["source"] = "nesh"
 
             if not resultados:
-                return "Nenhuma regra relevante encontrada na base NESH."
+                return "Nenhuma regra relevante encontrada nas bases tecnicas."
 
             contexto_parts = []
-            for i, r in enumerate(resultados, 1):
-                contexto_parts.append(f"[Trecho {i} (score: {r['score']:.4f})]:\n{r['text']}")
+            nesh_count = 0
+            ncm_count = 0
+            for r in resultados:
+                source = r.get("source", "nesh")
+                if source == "nesh":
+                    nesh_count += 1
+                    contexto_parts.append(
+                        f"[NESH - Trecho {nesh_count} (score: {r['score']:.4f})]:\n{r['text']}"
+                    )
+                else:
+                    ncm_count += 1
+                    ncm_codigo = r.get("ncm_codigo", "")
+                    contexto_parts.append(
+                        f"[Tabela NCM - {ncm_codigo} (score: {r['score']:.4f})]:\n{r['text']}"
+                    )
 
             return "\n\n".join(contexto_parts)
 
         except Exception:
             logger.exception("Erro ao buscar contexto RAG")
-            return "Erro ao consultar base NESH. Analise sem contexto adicional."
+            return "Erro ao consultar bases tecnicas. Analise sem contexto adicional."
 
     def _call_openai(self, messages: list[dict]) -> str:
         """Chama a API da OpenAI com retry para rate limits."""

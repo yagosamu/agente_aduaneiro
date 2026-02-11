@@ -9,6 +9,7 @@ Instrucoes:
 4. Cite regras especificas (RGI 1 a 6, Notas de Secao, Notas de Capitulo, NESH) que fundamentem sua analise.
 5. Considere a materia constitutiva, a funcao, a forma de apresentacao e o uso do produto.
 6. Se houver contexto de regras NESH fornecido, utilize-o como base tecnica prioritaria para sua analise.
+7. Se houver codigos NCM da tabela oficial no contexto, utilize-os como referencia para validar a classificacao e sugerir alternativas mais adequadas quando necessario.
 
 Criterios de avaliacao:
 - APROVADO: A classificacao NCM esta correta e consistente com a descricao do produto.
@@ -28,7 +29,7 @@ DESCRICAO DO PRODUTO:
 NCM SUGERIDA:
 {ncm_sugerida}
 
-CONTEXTO DE REGRAS NESH:
+CONTEXTO TECNICO (NESH + TABELA NCM):
 {regras_contexto}
 
 Com base nas informacoes acima, emita seu parecer tecnico sobre a consistencia da classificacao NCM sugerida para o produto descrito."""
