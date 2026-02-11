@@ -98,7 +98,7 @@ ALIASES_DESCRICAO = {
 
 ALIASES_NCM = {
     "ncm", "codigo_ncm", "código_ncm", "ncm_code", "cod_ncm",
-    "código ncm", "codigo ncm", "cod ncm", "code",
+    "código ncm", "codigo ncm", "cod ncm",
 }
 
 
@@ -133,6 +133,7 @@ def detectar_colunas(df: pd.DataFrame, uploaded_file) -> pd.DataFrame | None:
 
     if col_descricao and col_ncm:
         df = df.rename(columns={col_descricao: "descricao", col_ncm: "ncm"})
+        df = df.loc[:, ~df.columns.duplicated()]
         return df
 
     # Fase 2: fallback — procurar cabecalho nas primeiras 50 linhas
@@ -170,6 +171,7 @@ def detectar_colunas(df: pd.DataFrame, uploaded_file) -> pd.DataFrame | None:
                 df_novo = df_novo.rename(
                     columns={col_descricao: "descricao", col_ncm: "ncm"}
                 )
+                df_novo = df_novo.loc[:, ~df_novo.columns.duplicated()]
                 return df_novo
 
     return None
