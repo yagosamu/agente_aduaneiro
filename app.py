@@ -135,9 +135,9 @@ def detectar_colunas(df: pd.DataFrame, uploaded_file) -> pd.DataFrame | None:
         df = df.rename(columns={col_descricao: "descricao", col_ncm: "ncm"})
         return df
 
-    # Fase 2: fallback — procurar cabecalho nas primeiras 10 linhas
+    # Fase 2: fallback — procurar cabecalho nas primeiras 50 linhas
     aliases_todos = ALIASES_DESCRICAO | ALIASES_NCM
-    max_linhas = min(10, len(df))
+    max_linhas = min(50, len(df))
 
     for idx in range(max_linhas):
         valores = [_normalizar_nome_coluna(str(v)) for v in df.iloc[idx]]
@@ -427,6 +427,15 @@ with tab2:
                 df_input = pd.read_excel(uploaded_file)
 
             df_input = detectar_colunas(df_input, uploaded_file)
+
+            if df_input is not None:
+                df_input = df_input.dropna(subset=["descricao", "ncm"], how="all")
+                df_input = df_input[
+                    df_input["descricao"].astype(str).str.strip().ne("")
+                    & df_input["ncm"].astype(str).str.strip().ne("")
+                    & df_input["descricao"].astype(str).str.lower().ne("nan")
+                    & df_input["ncm"].astype(str).str.lower().ne("nan")
+                ].reset_index(drop=True)
 
             if df_input is None:
                 st.error(
